@@ -1,0 +1,27 @@
+@import "tailwindcss";
+
+@layer components {
+  .mycontainer {
+    @apply container px-40 py-16 pt-5 mx-auto;
+  }
+}
+
+/* Custom scrollbar styles */
+.custom-scrollbar::-webkit-scrollbar {
+  @apply w-2; /* Width of the entire scrollbar */
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  /* Use a very light green for the track, almost like your main background */
+  @apply bg-green-50;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  /* Use a vibrant green for the handle, matching your accents */
+  @apply bg-green-700 rounded-full;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  /* Darken slightly on hover */
+  @apply bg-green-600;
+}
