@@ -2,6 +2,10 @@
 
 A full-stack password manager application built with React and Node.js. This application allows users to securely save, view, edit, and delete their passwords for various websites.
 
+
+![PassOP Screenshot](PASTE_YOUR_IMAGE_URL_HERE)
+
+
 ## ✨ Features
 
 - **Secure Storage:** All passwords are saved in a MongoDB database.
