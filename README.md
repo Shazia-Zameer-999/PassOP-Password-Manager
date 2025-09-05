@@ -1,12 +1,53 @@
-# React + Vite
+# PassOP - Your Own Password Manager
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A full-stack password manager application built with React and Node.js. This application allows users to securely save, view, edit, and delete their passwords for various websites.
 
-Currently, two official plugins are available:
+## ✨ Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **Secure Storage:** All passwords are saved in a MongoDB database.
+- **CRUD Functionality:** Full Create, Read, Update, and Delete operations for passwords.
+- **Copy to Clipboard:** Easily copy usernames and passwords with a single click.
+- **Responsive Design:** A clean and modern UI that works on all screen sizes.
+- **Live Star Counter:** Displays the repository's star count fetched from the GitHub API.
 
-## Expanding the ESLint configuration
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## 🛠️ How to Run Locally
+
+To get a local copy up and running, follow these simple steps.
+
+### Prerequisites
+
+* Node.js installed
+* npm installed
+* MongoDB installed and running
+
+### Installation & Setup
+
+1.  **Clone the repo:**
+    ```sh
+    git clone [https://github.com/Shazia-Zameer-999/PassOP-Password-Manager.git](https://github.com/Shazia-Zameer-999/PassOP-Password-Manager.git)
+    ```
+2.  **Install Frontend Dependencies:**
+    ```sh
+    cd PassOP-Password-Manager
+    npm install
+    ```
+3.  **Install Backend Dependencies:**
+    ```sh
+    cd backend
+    npm install
+    ```
+4.  **Create a `.env` file** in the `backend` folder and add your MongoDB connection string:
+    ```
+    MONGO_URI=your_mongodb_connection_string
+    ```
+5.  **Run the Backend Server:**
+    ```sh
+    # From the 'backend' folder
+    npm run dev
+    ```
+6.  **Run the Frontend App:**
+    ```sh
+    # From the root 'PassOP-Password-Manager' folder
+    npm run dev
+    ```
