@@ -3,6 +3,8 @@ const { MongoClient } = require('mongodb');
 const dotenv = require('dotenv')
 const bodyparser = require('body-parser')
 const cors = require('cors')
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
 
 
 dotenv.config()
@@ -21,59 +23,124 @@ client.connect();
 app.use(bodyparser.json())
 app.use(express.json());
 app.use(cors())
+// SIGNUP Route
+app.post('/signup', async (req, res) => {
+  try {
+    const { username, password } = req.body;
+    const db = client.db(dbName);
+    const usersCollection = db.collection('users');
 
+    const existingUser = await usersCollection.findOne({ username });
+    if (existingUser) {
+      return res.status(400).json({ message: "Username already exists." });
+    }
 
-//Get all the passwords
-app.get('/', async (req, res) => {
-  const db = client.db(dbName);
-  const collection = db.collection('passwords');
-  const findResult = await collection.find({}).toArray();
-  res.json(findResult)
-})
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(password, salt);
 
-// Save a password
-app.post('/', async (req, res) => {
-  const password = req.body; // Get the password object from the request body
-  const db = client.db(dbName);
-  const collection = db.collection('passwords');
-  // Insert the new password into the collection
-  const result = await collection.insertOne(password);
-  // Send a success response back
-  res.json({ success: true, result: result });
+    await usersCollection.insertOne({ username, password: hashedPassword });
+    res.status(201).json({ message: "User created successfully!" });
+  } catch (error) {
+    res.status(500).json({ message: "Server error during signup." });
+  }
+});
+
+// LOGIN Route
+app.post('/login', async (req, res) => {
+  try {
+    const { username, password } = req.body;
+    const db = client.db(dbName);
+    const usersCollection = db.collection('users');
+
+    const user = await usersCollection.findOne({ username });
+    if (!user) {
+      return res.status(400).json({ message: "Invalid credentials." });
+    }
+
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch) {
+      return res.status(400).json({ message: "Invalid credentials." });
+    }
+
+    const payload = { user: { id: user._id.toString() } }; 
+    const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '1h' });
+
+    res.json({ token });
+  } catch (error) {
+    res.status(500).json({ message: "Server error during login." });
+  }
 });
 
 
-
-// Delete a password by id
-app.delete('/', async (req, res) => {
-  const { id } = req.body;
-  if (!id) {
-    return res.status(400).json({ success: false, message: "ID is required for deletion." });
+const authMiddleware = (req, res, next) => {
+  const authHeader = req.header('Authorization');
+  if (!authHeader) {
+    return res.status(401).json({ message: 'No token, authorization denied' });
   }
 
+  const token = authHeader.replace('Bearer ', '');
+  if (!token) {
+    return res.status(401).json({ message: 'No token, authorization denied' });
+  }
+
+  try {
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    req.user = decoded.user;
+    next();
+  } catch (err) {
+    res.status(401).json({ message: 'Token is not valid' });
+  }
+};
+
+
+// Get all the passwords for the logged-in user
+app.get('/', authMiddleware, async (req, res) => {
   const db = client.db(dbName);
   const collection = db.collection('passwords');
-  const result = await collection.deleteOne({ id: id });
+  const findResult = await collection.find({ userId: req.user.id }).toArray(); // Find only user's passwords
+  res.json(findResult);
+});
 
+// Save a password for the logged-in user
+app.post('/', authMiddleware, async (req, res) => {
+  const passwordData = req.body;
+  const db = client.db(dbName);
+  const collection = db.collection('passwords');
+  const result = await collection.insertOne({ ...passwordData, userId: req.user.id }); // Add userId
   res.json({ success: true, result: result });
 });
 
-//Edit or Update a password by its ID
-app.put('/:id', async (req, res) => {
+
+
+
+// Delete a password by id, ensuring it belongs to the logged-in user
+app.delete('/', authMiddleware, async (req, res) => {
+  const { id } = req.body;
+  const db = client.db(dbName);
+  const collection = db.collection('passwords');
+  const result = await collection.deleteOne({ id: id, userId: req.user.id }); // Add userId check
+  if (result.deletedCount === 0) {
+    return res.status(404).json({ message: "Password not found or user not authorized." });
+  }
+  res.json({ success: true, result: result });
+});
+
+// Edit or Update a password by its ID, ensuring it belongs to the logged-in user
+app.put('/:id', authMiddleware, async (req, res) => {
   const { id } = req.params;
   const updatedPasswordData = req.body;
-  delete updatedPasswordData._id;
-
-  if (!id) {
-    return res.status(400).json({ success: false, message: "ID is required to update." });
-  }
+  delete updatedPasswordData._id; // Good practice
+  delete updatedPasswordData.userId; // Prevent user from changing the owner
 
   const db = client.db(dbName);
   const collection = db.collection('passwords');
   const result = await collection.updateOne(
-    { id: id },
+    { id: id, userId: req.user.id }, // Add userId check
     { $set: updatedPasswordData }
   );
+  if (result.matchedCount === 0) {
+    return res.status(404).json({ message: "Password not found or user not authorized." });
+  }
   res.json({ success: true, result: result });
 });
 
