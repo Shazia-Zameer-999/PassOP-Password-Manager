@@ -101,4 +101,8 @@ npm run dev
 
 That's it! The app should now be running on <u> http://localhost:5173 </u>. Have fun!
 
+<<<<<<< HEAD
 ### Built with ❤️ by Shazia Zameer.
+=======
+### Built with ❤️ by Shazia Zameer.
+>>>>>>> 49e35c7438d5ffebdbcaba13762da5d732c66f0d
