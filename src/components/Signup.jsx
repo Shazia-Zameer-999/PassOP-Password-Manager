@@ -1,6 +1,6 @@
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { toast } from 'react-toastify';
+import { ToastContainer, toast, Zoom } from 'react-toastify';
 
 const Signup = () => {
     const [form, setform] = useState({ username: "", password: "" });
@@ -14,7 +14,7 @@ const Signup = () => {
         setform({ ...form, [e.target.name]: e.target.value });
     };
     const showPassword = () => {
-        setIsPasswordVisible(!isPasswordVisible); 
+        setIsPasswordVisible(!isPasswordVisible);
     };
     const generatePassword = () => {
         const lowerCaseChars = "abcdefghijklmnopqrstuvwxyz";
@@ -64,7 +64,20 @@ const Signup = () => {
         }
     };
 
-    return (
+    return (<>
+        <ToastContainer
+            position="top-right"
+            autoClose={2000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            theme="dark"
+            transition={Zoom}
+        />
         <div className="min-h-screen w-full bg-green-50 flex flex-col items-center justify-center p-4">
             <div className="w-full max-w-md p-8 space-y-6 bg-white rounded-lg shadow-xl">
                 <div className="text-center">
@@ -124,6 +137,7 @@ const Signup = () => {
                 </div>
             </div>
         </div>
+    </>
     );
 };
 

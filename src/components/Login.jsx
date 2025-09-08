@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { toast } from 'react-toastify';
+import { ToastContainer, toast, Zoom } from 'react-toastify';
 
 const Login = () => {
     const [form, setForm] = useState({ username: "", password: "" });
-    const navigate = useNavigate(); 
+    const navigate = useNavigate();
 
     const handleChange = (e) => {
         setForm({ ...form, [e.target.name]: e.target.value });
@@ -16,7 +16,7 @@ const Login = () => {
 
 
     const handleLogin = async (e) => {
-        e.preventDefault(); 
+        e.preventDefault();
 
         try {
             const res = await fetch("http://localhost:3000/login", {
@@ -35,11 +35,25 @@ const Login = () => {
                 toast.error(data.message || "Invalid credentials.");
             }
         } catch (error) {
-            toast.error("An error occurred during login.");
+            toast.error("An error occurred during login.", error);
         }
     };
 
-    return (
+    return (<>
+        <ToastContainer
+            position="top-right"
+            autoClose={2000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            theme="dark"
+            transition={Zoom}
+        />
+
         <div className="min-h-screen w-full bg-green-50 flex items-center justify-center">
             <div className="w-full max-w-md p-8 space-y-6 bg-white rounded-lg shadow-md">
                 <div className="text-center">
@@ -56,7 +70,7 @@ const Login = () => {
                             type="text"
                             name="username"
                             id="username"
-                            className="w-full p-2 border border-green-300 rounded-full mt-1"
+                            className="w-full p-2 border border-green-300 rounded-full mt-1 focus:outline-none focus:ring-2 focus:ring-green-400 "
                             required
                         />
                     </div>
@@ -72,7 +86,7 @@ const Login = () => {
                                 id="password"
                                 className="w-full p-2 border border-green-300 rounded-full mt-1 focus:outline-none focus:ring-2 focus:ring-green-400 "
                                 required
-                            />                        
+                            />
                             <span className="cursor-pointer absolute right-2 top-[13px]" onClick={showPassword}>
                                 <img className='w-5' src={isPasswordVisible ? "/icons/eyecross.png" : "/icons/eye.png"} alt="Show/Hide Password" />
                             </span>
@@ -89,6 +103,7 @@ const Login = () => {
                 </div>
             </div>
         </div>
+    </>
     );
 };
 

@@ -5,7 +5,6 @@ import { v4 as uuidv4 } from 'uuid';
 
 
 const Manager = () => {
-    const ref = useRef()
     const passwordRef = useRef()
     const [form, setform] = useState({ site: "", username: "", password: "" })
     const [passwordArray, setpasswordArray] = useState([])
@@ -21,9 +20,11 @@ const Manager = () => {
             }
         });
         let passwords = await req.json()
-        if (passwords) {
-            console.log(passwords)
-            setpasswordArray(passwords)
+        if (Array.isArray(passwords)) {
+            setpasswordArray(passwords);
+        } else {
+            console.error("Failed to fetch passwords:", passwords);
+            setpasswordArray([]);
         }
     }
 
@@ -62,10 +63,6 @@ const Manager = () => {
 
     const showPassword = () => {
         setIsPasswordVisible(!isPasswordVisible);
-    };
-    const handleLogout = () => {
-        localStorage.removeItem("token");
-        window.location.href = '/login';
     };
     const deletePassword = async (id) => {
         let userChoice = window.confirm("Are you sure you want to delete?");
@@ -213,15 +210,12 @@ const Manager = () => {
                         <span className="text-green-500">OP/ &gt;</span></h1>
 
                     <p className='text-green-900 sm:text-lg text-sm text-center transition-all'>Your own Password Manager</p>
-                    <button onClick={handleLogout} className="text-white bg-green-500 rounded-md px-2 mt-6 mx-4 md:py-1 py-[2px] md:text-lg text-[16px]">Logout</button>
-
-                    {/*  form section */}
                     <div className="flex flex-col p-4 md:gap-8 gap-4 text-black items-center">
-                        <input value={form.site} onChange={handleChange} placeholder='Enter website URL' className='text-[11px]  sm:text-sm rounded-full bg-white border border-green-500 w-full p-4 py-1 transition-all' type="text" name="site" id="site" />
+                        <input value={form.site} onChange={handleChange} placeholder='Enter website URL' className='text-[11px]  sm:text-sm rounded-full bg-white border border-green-500 w-full p-4 py-1 transition-all focus:outline-none focus:ring-2 focus:ring-green-400' type="text" name="site" id="site" />
                         <div className="flex lg:flex-row flex-col lg:gap-8 w-full gap-4 ">
-                            <input value={form.username} onChange={handleChange} placeholder='Enter Username ' className='text-[11px] sm:text-sm  rounded-full bg-white border border-green-500 lg:w-2/3  p-4 py-1 transition-all' name="username" id="username" type="text" />
+                            <input value={form.username} onChange={handleChange} placeholder='Enter Username ' className='text-[11px] sm:text-sm  rounded-full bg-white border border-green-500 lg:w-2/3  p-4 py-1 transition-all focus:outline-none focus:ring-2 focus:ring-green-400' name="username" id="username" type="text" />
                             <div className="relative flex justify-center items-center gap-3.5 lg:w-1/3 ">
-                                <input ref={passwordRef} value={form.password} onChange={handleChange} placeholder='Enter Password' className='text-[11px] sm:text-sm  rounded-full bg-white border border-green-500 w-full p-4 py-1' type={isPasswordVisible ? "text" : "password"} name="password" id="password" />
+                                <input ref={passwordRef} value={form.password} onChange={handleChange} placeholder='Enter Password' className='text-[11px] sm:text-sm  rounded-full bg-white border border-green-500 w-full p-4 py-1 focus:outline-none focus:ring-2 focus:ring-green-400' type={isPasswordVisible ? "text" : "password"} name="password" id="password" />
                                 <button
                                     type="button"
                                     className="absolute right-[35px] top-[4px] cursor-pointer"
