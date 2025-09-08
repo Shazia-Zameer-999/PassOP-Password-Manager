@@ -32,6 +32,23 @@ Hey there! I built PassOP, a super secure and modern password manager, from scra
 
 ### 📸 Screenshots
 
+<table>
+<tr>
+<td align="center"><strong>Secure Login & Signup</strong></td>
+<td align="center"><strong>Profile Management</strong></td>
+</tr>
+<tr>
+<td><img src="./screenshots/phone_login.png" alt="Login Page Screenshot" width="400"/></td>
+<td><img src="./screenshots/tablet_login.png" alt="Login Page Screenshot" width="400"/></td>
+<td><img src="./screenshots/phone_about.png" alt="Profile Page Screenshot" width="400"/></td>
+<td><img src="./screenshots/tablet_about.png" alt="Profile Page Screenshot" width="400"/></td>
+<td><img src="./screenshots/phone_footer.png" alt="Profile Page Screenshot" width="400"/></td>
+<td><img src="./screenshots/tablet_footer.png" alt="Profile Page Screenshot" width="400"/></td>
+<td><img src="./screenshots/phone_main.png" alt="Profile Page Screenshot" width="400"/></td>
+<td><img src="./screenshots/tablet_main.png" alt="Profile Page Screenshot" width="400"/></td>
+</tr>
+</table>
+
 ### 🛠️ The Tech I Used
 
 | Category    | Technology                              |
