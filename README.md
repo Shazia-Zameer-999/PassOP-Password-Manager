@@ -1,21 +1,37 @@
-# PassOP - Your Own Secure Password Manager!
+<h1 align="center">
+  <a href="">
+    <img src="https://readme-typing-svg.herokuapp.com?font=Geist&size=40&pause=1000&color=36BCF7&center=true&vCenter=true&width=550&lines=PassOP+%F0%9F%94%92;Your+Own+Secure+Password+Manager" alt="PassOP Typing Animation" />
+  </a>
+</h1>
 
-Hey there! I built PassOP, a super secure and modern password manager, from scratch using the MERN stack. It's got a full login system, so you can safely save all your passwords in your own private space. This was a really fun project where I got to dive deep into everything from building a secure backend to creating a slick, easy-to-use frontend!
 
-## ✨ What It Can Do!
 
-- Log In Securely: You can sign up and log in to your own account! I used JWTs for sessions and hashed all the passwords with bcryptjs, so everything is super safe.
+<p align="center">
+  <em>A secure, modern, full-stack password manager built from scratch with the MERN stack.</em>
+</p>
 
-- Your Own Private Vault: Once you're logged in, your password vault is completely private. Only you can ever see the passwords you save.
+<p align="center">
+  <img src="https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB" alt="React"/>
+  <img src="https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white" alt="Node.js"/>
+  <img src="https://img.shields.io/badge/MongoDB-4EA94B?style=for-the-badge&logo=mongodb&logoColor=white" alt="MongoDB"/>
+  <img src="https://img.shields.io/badge/Express.js-000000?style=for-the-badge&logo=express&logoColor=white" alt="Express.js"/>
+  <img src="https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white" alt="Tailwind CSS"/>
+</p>
 
-- Full Control of Your Passwords: You can easily add, view, update, and delete any of your passwords.
+---
 
-- Customize Your Profile: You can even upload your own profile picture! The backend uses multer to handle the image uploads.
+## 🎬 Project Demo
 
-- Extra Secure Profile Changes: Want to change your password? No problem! But first, you'll have to re-enter your old password for extra security.
+A quick walkthrough of PassOP's core features in action.
 
-- Generate Strong Passwords: Can't think of a good password? Just click the button, and the app will generate a strong, random one for you right on the spot!
+<div align="center">
+  
+  **
+  <img src="/public/project_demo.gif" alt="Project Demo GIF"/>
+  
+</div>
 
+---
 ### A Slick & Modern UI:
 
 - The whole thing is built with Tailwind CSS, so it looks great on any device.
@@ -30,6 +46,18 @@ Hey there! I built PassOP, a super secure and modern password manager, from scra
 
 ---
 
+## ✨ Key Features
+
+* 🔐 **Secure Authentication:** Full user signup and login system using JWT for sessions and `bcryptjs` for password hashing.
+* 🗄️ **Private Password Vault:** Once logged in, a user's password vault is completely private and accessible only to them.
+* ✍️ **Full CRUD Functionality:** Easily **C**reate, **R**ead, **U**pdate, and **D**elete any saved password.
+* 👤 **Customizable User Profiles:** Users can upload their own profile picture, which is handled by a `multer`-powered backend.
+* 🛡️ **Enhanced Security:** To change a password, users must first verify their current password for an extra layer of security.
+* 🎲 **Strong Password Generator:** Can't think of a good password? The app can generate a strong, random one instantly.
+* 📱 **Slick & Responsive UI:** Built with Tailwind CSS, the interface is modern, clean, and looks great on any device, from mobile to desktop.
+* 🔔 **User-Friendly Notifications:** Get toast notifications for all major actions, providing clear user feedback.
+
+---
 ### 📸 Screenshots(Responsiveness)
 
 <table>
@@ -56,93 +84,89 @@ Hey there! I built PassOP, a super secure and modern password manager, from scra
 
 </table>
 
-### 🛠️ The Tech I Used
 
-| Category    | Technology                              |
-| ----------- | --------------------------------------- |
-| Frontend    | React, Vite, React Router, Tailwind CSS |
-| Backend     | Node.js, Express.js                     |
-| Database    | MongoDB                                 |
-| Auth        | JSON Web Tokens (JWT), bcryptjs         |
-| File Upload | Multer                                  |
+[![My Skills](https://skillicons.dev/icons?i=react,nodejs,mongodb,express,tailwind,vite,vscode,git)](https://skillicons.dev)
 
-## 🚀 Want to run it yourself?
 
-#### Awesome! To get a copy running on your own machine, just follow these simple steps.
+## 🛠️ Tech Stack
 
-First Things First
-Before you start, make sure you have these things installed:
+| Category      | Technology                                                                                                                                                                                                                                  |
+| ------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Frontend** | `React`, `Vite`, `React Router`, `Tailwind CSS`                                                                                                                                                                                               |
+| **Backend** | `Node.js`, `Express.js`                                                                                                                                                                                                                     |
+| **Database** | `MongoDB`                                                                                                                                                                                                                                   |
+| **Auth** | `JSON Web Tokens (JWT)`, `bcryptjs`                                                                                                                                                                                                           |
+| **File Upload** | `Multer`                                                                                                                                                                                                                                    |
 
-- Node.js (version 18 or newer is best)
+---
 
-- npm (this usually comes with Node)
+## 🚀 Getting Started
 
-- MongoDB (make sure it's running!)
+To get a local copy up and running, just follow these simple steps.
 
-- nodemon (it's a handy tool for restarting the server automatically)
+### Prerequisites
 
-#### Let's Get It Set Up!
+Make sure you have these things installed before you start:
+* [Node.js](https://nodejs.org/en/) (v18 or newer)
+* [npm](https://www.npmjs.com/) (usually comes with Node)
+* [MongoDB](https://www.mongodb.com/try/download/community) (make sure the service is running!)
 
-1. Clone the repo:
+### Installation & Setup
 
-```
-git clone [https://github.com/Shazia-Zameer-999/PassOP-Password-Manager.git](https://github.com/Shazia-Zameer-999/PassOP-Password-Manager.git)
+1.  **Clone the Repository**
+    ```sh
+    git clone [https://github.com/Shazia-Zameer-999/PassOP-Password-Manager.git](https://github.com/Shazia-Zameer-999/PassOP-Password-Manager.git)
+    ```
+2.  **Navigate to the Project Directory**
+    ```sh
+    cd PassOP-Password-Manager
+    ```
+3.  **Install Frontend Dependencies**
+    ```sh
+    npm install
+    ```
+4.  **Install Backend Dependencies**
+    ```sh
+    cd backend
+    npm install
+    ```
+5.  **Set Up Environment Variables**
+    * In the `backend` folder, create a new file named `.env`.
+    * Add these two lines, replacing the placeholder values with your own secret keys:
+        ```env
+        MONGO_URI=your_mongodb_connection_string_here
+        JWT_SECRET=your_super_secret_and_long_jwt_key_here
+        ```
+6.  **Run the Application**
+    You'll need two separate terminals open to run both the frontend and backend servers.
 
-```
+    * **Terminal 1 (Backend):**
+        ```sh
+        cd backend
+        nodemon server.js
+        ```
+    * **Terminal 2 (Frontend):**
+        ```sh
+        npm run dev
+        ```
+That's it! The app should now be running at **http://localhost:5173**.
 
-2. Jump into the project folder:
 
-```
-cd PassOP-Password-Manager
-```
 
-3. Install the frontend stuff:
+[![Shazia Zameer's GitHub stats](https://github-readme-stats.vercel.app/api?username=Shazia-Zameer-999&show_icons=true&theme=dracula)](https://github.com/anuraghazra/github-readme-stats)
+---
 
-- this will install all the dependencies written in your package.json
 
-```
-npm install
-```
+[![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=Shazia-Zameer-999&layout=compact&theme=dracula)](https://github.com/anuraghazra/github-readme-stats)
 
-4. Install the backend stuff:
+![GitHub last commit](https://img.shields.io/github/last-commit/Shazia-Zameer-999/PassOP-Password-Manager)
 
-```
-cd backend
-npm install
-```
+![GitHub Repo stars](https://img.shields.io/github/stars/Shazia-Zameer-999/PassOP-Password-Manager?style=social)
 
-5. Set Up Your Secret Keys:
+[![trophy](https://github-profile-trophy.vercel.app/?username=Shazia-Zameer-999&theme=dracula&column=7)](https://github.com/ryo-ma/github-profile-trophy)
 
-- In the backend folder, create a new file and name it .env.
+----
 
-- Add these two lines, but with your own secret values:
-
-```
-MONGO_URI=your_mongodb_connection_string_here
-JWT_SECRET=your_super_secret_and_long_jwt_key_here
-```
-
-6. Run the App!
-   You'll need two terminals open for this.
-
-- Terminal 1: Start the Backend (make sure you're in the backend folder)
-
-```
-cd backend
-nodemon server.js
-
-```
-
-- Terminal 2: Start the Frontend (from the main project folder)
-
-```
-npm run dev
-```
-
-That's it! The app should now be running on <u> http://localhost:5173 </u>. Have fun!
-
-<<<<<<< HEAD
-
-### Built with ❤️ by Shazia Zameer.
-
-=======
+<p align="center">
+Built with ❤️ by Shazia Zameer.
+</p>
