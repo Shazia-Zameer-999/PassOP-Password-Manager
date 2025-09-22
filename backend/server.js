@@ -11,7 +11,9 @@ const multer = require('multer');
 
 
 
-dotenv.config()
+// dotenv.config()
+dotenv.config({ path: './.env' })
+console.log('JWT Secret Loaded:', process.env.JWT_SECRET); // Debugging line
 
 //Connection URL
 const url = 'mongodb://localhost:27017';
