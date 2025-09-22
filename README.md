@@ -1,6 +1,6 @@
 <h1 align="center">
   <a href="">
-    <img src="https://readme-typing-svg.herokuapp.com?font=Geist&size=40&pause=1000&color=36BCF7&center=true&vCenter=true&width=550&lines=PassOP+%F0%9F%94%92;Your+Own+Secure+Password+Manager" alt="PassOP Typing Animation" />
+    <img src="https://readme-typing-svg.herokuapp.com?font=Geist&size=40&pause=1000&color=36BCF7&center=true&vCenter=true&width=700&lines=PassOP+%F0%9F%94%92;Your+Own+Secure+Password+Manager" alt="PassOP Typing Animation" />
   </a>
 </h1>
 
@@ -168,5 +168,5 @@ That's it! The app should now be running at **http://localhost:5173**.
 ----
 
 <p align="center">
-Built with ❤️ by Shazia Zameer.
+Built with ❤️ by Daten Diva.
 </p>
