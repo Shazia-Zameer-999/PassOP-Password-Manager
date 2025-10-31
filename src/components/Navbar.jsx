@@ -24,7 +24,7 @@ const Navbar = () => {
         formData.append('avatar', file);
         const token = localStorage.getItem("token");
         try {
-            const res = await fetch("http://localhost:3000/api/user/avatar", {
+            const res = await fetch(`${process.env.VITE_API_BASE}/api/user/avatar`, {
                 method: 'POST',
                 headers: {
                     'Authorization': `Bearer ${token}`
@@ -83,7 +83,7 @@ const Navbar = () => {
             const token = localStorage.getItem("token");
             if (token) {
                 try {
-                    const res = await fetch("http://localhost:3000/api/user/me", {
+                    const res = await fetch(`${process.env.VITE_API_BASE}/api/user/me`, {
                         headers: { 'Authorization': `Bearer ${token}` }
                     });
                     const data = await res.json();
@@ -197,7 +197,7 @@ const Navbar = () => {
                                 hover:scale-110 hover:shadow-lg hover:shadow-green-500/50
                                 focus:outline-none focus:ring-2 focus:ring-offset-2                      focus:ring-green-400 focus:ring-offset-slate-800 cursor-pointer                           overflow-hidden">
                                 {avatarUrl ? (
-                                    <img src={`http://localhost:3000${avatarUrl}`} alt="User Avatar" className="w-full h-full object-cover" />
+                                    <img src={`${process.env.VITE_API_BASE}/${avatarUrl}`} alt="User Avatar" className="w-full h-full object-cover" />
                                 ) : (
                                     <span>{username.charAt(0).toUpperCase()}</span>
                                 )}

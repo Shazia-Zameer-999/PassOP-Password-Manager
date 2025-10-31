@@ -12,11 +12,13 @@ const multer = require('multer');
 
 
 // dotenv.config()
-dotenv.config({ path: './.env' })
-console.log('JWT Secret Loaded:', process.env.JWT_SECRET); // Debugging line
+// dotenv.config({ path: './.env' })
+dotenv.config({ path: path.resolve(__dirname, '.env') });
+
+
 
 //Connection URL
-const url = 'mongodb://localhost:27017';
+const url = process.env.MONGODB_URI;
 const client = new MongoClient(url);
 
 //Database Name
@@ -25,10 +27,25 @@ const app = express()
 const port = 3000
 
 
-client.connect();
+// client.connect();
+async function connectDB() {
+  try {
+    await client.connect();
+    console.log("MongoDB connected successfully!");
+  } catch (err) {
+    console.error("MongoDB connection error:", err);
+  }
+}
+connectDB();
+
 app.use(bodyparser.json())
 app.use(express.json());
-app.use(cors())
+// app.use(cors())
+app.use(cors({
+  origin: ["http://localhost:5173", "https://pass-op-password-manager-puce.vercel.app"],
+  credentials: true
+}));
+
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 const authMiddleware = (req, res, next) => {
@@ -216,6 +233,7 @@ app.post('/', authMiddleware, async (req, res) => {
 
 
 
+
 // --- APPLICATION STATUS ROUTE  ---
 app.get('/api/status', (req, res) => {
   res.json({
@@ -230,7 +248,9 @@ app.delete('/', authMiddleware, async (req, res) => {
   const { id } = req.body;
   const db = client.db(dbName);
   const collection = db.collection('passwords');
-  const result = await collection.deleteOne({ id: id, userId: req.user.id });
+  // const result = await collection.deleteOne({ id: id, userId: req.user.id });
+  const result = await collection.deleteOne({ _id: new ObjectId(id), userId: req.user.id });
+
   if (result.deletedCount === 0) {
     return res.status(404).json({ message: "Password not found or user not authorized." });
   }
@@ -247,15 +267,15 @@ app.put('/:id', authMiddleware, async (req, res) => {
   const db = client.db(dbName);
   const collection = db.collection('passwords');
   const result = await collection.updateOne(
-    { id: id, userId: req.user.id },
-    { $set: updatedPasswordData }
-  );
+  { _id: new ObjectId(id), userId: req.user.id },
+  { $set: updatedPasswordData }
+);
+
   if (result.matchedCount === 0) {
     return res.status(404).json({ message: "Password not found or user not authorized." });
   }
   res.json({ success: true, result: result });
 });
 
-app.listen(port, () => {
-  console.log(`Example app listening on port http://localhost:${port}`)
-})
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => console.log(`Server running on ${PORT}`));
