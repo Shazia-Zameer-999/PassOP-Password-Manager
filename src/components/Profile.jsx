@@ -20,7 +20,7 @@ const Profile = () => {
         const fetchUserData = async () => {
             const token = localStorage.getItem("token");
             try {
-                const res = await fetch(`${process.env.VITE_API_BASE}/api/user/me`, {
+                const res = await fetch(`${import.meta.env.VITE_API_BASE}/api/user/me`, {
                     headers: { 'Authorization': `Bearer ${token}` }
                 });
                 const data = await res.json();
@@ -49,7 +49,7 @@ const Profile = () => {
         e.preventDefault();
         const token = localStorage.getItem("token");
         try {
-            const res = await fetch(`${process.env.VITE_API_BASE}/api/user/profile`, {
+            const res = await fetch(`${import.meta.env.VITE_API_BASE}/api/user/profile`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
@@ -76,7 +76,7 @@ const Profile = () => {
     const handleVerifyPassword = async () => {
         const token = localStorage.getItem("token");
         try {
-            const res = await fetch(`${process.env.VITE_API_BASE}/api/user/verify-password`, {
+            const res = await fetch(`${import.meta.env.VITE_API_BASE}/api/user/verify-password`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

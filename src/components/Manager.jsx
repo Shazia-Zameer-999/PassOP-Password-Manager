@@ -14,7 +14,7 @@ const Manager = () => {
 
     const getPasswords = async () => {
         const token = localStorage.getItem("token");
-        let req = await fetch(`${process.env.VITE_API_BASE}/`, {
+        let req = await fetch(`${import.meta.env.VITE_API_BASE}/`, {
             headers: {
                 'Authorization': `Bearer ${token}`
             }
@@ -70,7 +70,7 @@ const Manager = () => {
             const newPasswordArray = (passwordArray.filter(item => item.id !== id))
             setpasswordArray(newPasswordArray)
             const token = localStorage.getItem("token");
-            await fetch(`${process.env.VITE_API_BASE}`, {
+            await fetch(`${import.meta.env.VITE_API_BASE}`, {
                 method: "DELETE",
                 headers: {
                     "Content-Type": "application/json",
@@ -103,7 +103,7 @@ const Manager = () => {
     };
     const handleUpdate = async () => {
         const idToUpdate = form.id;
-        const url = `${process.env.VITE_API_BASE}/${idToUpdate}`;
+        const url = `${import.meta.env.VITE_API_BASE}/${idToUpdate}`;
         const token = localStorage.getItem("token");
         await fetch(url, {
             method: "PUT",
@@ -136,7 +136,7 @@ const Manager = () => {
             setpasswordArray(newPasswordArray);
 
             const token = localStorage.getItem("token");
-            await fetch(`${process.env.VITE_API_BASE}`, {
+            await fetch(`${import.meta.env.VITE_API_BASE}`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

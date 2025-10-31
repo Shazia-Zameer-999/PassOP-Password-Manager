@@ -19,7 +19,7 @@ const Login = () => {
         e.preventDefault();
 
         try {
-            const res = await fetch(`${process.env.VITE_API_BASE}/login`, {
+            const res = await fetch(`${import.meta.env.VITE_API_BASE}/login`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(form)
