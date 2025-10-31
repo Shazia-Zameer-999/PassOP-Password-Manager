@@ -146,7 +146,7 @@ const Navbar = () => {
 
                             <div className="bg-slate-700/50 p-4 rounded-lg">
                                 <p className="text-sm text-gray-400">Crafted with ❤️ by</p>
-                                <p className="font-bold text-lg text-green-400">Shazia Zameer</p>
+                                <p className="font-bold text-lg text-green-400">Daten Diva</p>
                             </div>
 
                             <div className="text-center mt-8">

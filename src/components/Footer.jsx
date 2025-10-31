@@ -51,7 +51,7 @@ const Footer = () => {
                         <ul className="space-y-2">
                             <li><Link to="/" className="hover:text-green-400 transition-colors">Dashboard</Link></li>
                             <li><Link to="/profile" className="hover:text-green-400 transition-colors">My Profile</Link></li>
-                            <li><a href="https://your-portfolio-link.com" target="_blank" rel="noopener noreferrer" className="hover:text-green-400 transition-colors">Creator's Portfolio</a></li>
+                            <li><a href="https://portfolio-dd-ebon.vercel.app" target="_blank" rel="noopener noreferrer" className="hover:text-green-400 transition-colors">Creator's Portfolio</a></li>
                         </ul>
                     </div>
 
@@ -70,7 +70,7 @@ const Footer = () => {
                 </div>
 
                 <div className="text-center mt-12 border-t border-slate-700 pt-8">
-                    <p>Copyright © {new Date().getFullYear()} Shazia Zameer. All Rights Reserved.</p>
+                    <p>Copyright © {new Date().getFullYear()} Daten Diva. All Rights Reserved.</p>
                 </div>
 
 
