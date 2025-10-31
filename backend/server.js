@@ -40,11 +40,14 @@ connectDB();
 
 app.use(bodyparser.json())
 app.use(express.json());
-// app.use(cors())
+
+
 app.use(cors({
-  origin: ["http://localhost:5173", "https://pass-op-password-manager-puce.vercel.app"],
+  origin: ["https://pass-op-password-manager-ten.vercel.app"],
+  methods: ["GET", "POST", "PUT", "DELETE"],
   credentials: true
 }));
+
 
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
@@ -267,9 +270,9 @@ app.put('/:id', authMiddleware, async (req, res) => {
   const db = client.db(dbName);
   const collection = db.collection('passwords');
   const result = await collection.updateOne(
-  { _id: new ObjectId(id), userId: req.user.id },
-  { $set: updatedPasswordData }
-);
+    { _id: new ObjectId(id), userId: req.user.id },
+    { $set: updatedPasswordData }
+  );
 
   if (result.matchedCount === 0) {
     return res.status(404).json({ message: "Password not found or user not authorized." });
