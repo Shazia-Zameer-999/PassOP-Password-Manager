@@ -82,15 +82,20 @@ const authMiddleware = (req, res, next) => {
   }
 };
 
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, 'uploads/');
-  },
-  filename: function (req, file, cb) {
-    cb(null, 'avatar-' + Date.now() + path.extname(file.originalname));
-  }
-});
-const upload = multer({ storage: storage });
+// const storage = multer.diskStorage({
+//   destination: function (req, file, cb) {
+//     cb(null, 'uploads/');
+//   },
+//   filename: function (req, file, cb) {
+//     cb(null, 'avatar-' + Date.now() + path.extname(file.originalname));
+//   }
+// });
+// const upload = multer({ storage: storage });
+const streamifier = require('streamifier');
+
+// Store files in memory (not disk)
+const storage = multer.memoryStorage();
+const upload = multer({ storage });
 
 // app.post('/api/user/avatar', authMiddleware, upload.single('avatar'), async (req, res) => {
 //   try {
@@ -117,25 +122,39 @@ cloudinary.config({
   api_secret: process.env.CLOUD_API_SECRET,
 });
 
+
 app.post('/api/user/avatar', authMiddleware, upload.single('avatar'), async (req, res) => {
   try {
-    const result = await cloudinary.uploader.upload(req.file.path, {
-      folder: 'passop_avatars'
-    });
-    const avatarUrl = result.secure_url;
+    if (!req.file) {
+      return res.status(400).json({ message: 'No file uploaded' });
+    }
 
-    const db = client.db(dbName);
-    await db.collection('users').updateOne(
-      { _id: new ObjectId(req.user.id) },
-      { $set: { avatarUrl } }
+    const uploadStream = cloudinary.uploader.upload_stream(
+      { folder: 'passop_avatars' },
+      async (error, result) => {
+        if (error) {
+          console.error('Cloudinary upload error:', error);
+          return res.status(500).json({ message: 'Error uploading avatar', error });
+        }
+
+        const avatarUrl = result.secure_url;
+        const db = client.db(dbName);
+        await db.collection('users').updateOne(
+          { _id: new ObjectId(req.user.id) },
+          { $set: { avatarUrl } }
+        );
+        res.json({ success: true, message: 'Avatar updated successfully', avatarUrl });
+      }
     );
 
-    res.json({ success: true, message: 'Avatar updated', avatarUrl });
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: 'Error uploading avatar', error });
+    streamifier.createReadStream(req.file.buffer).pipe(uploadStream);
+  } catch (err) {
+    console.error('Avatar upload error:', err);
+    res.status(500).json({ message: 'Error processing avatar upload', err });
   }
 });
+
+
 
 
 
