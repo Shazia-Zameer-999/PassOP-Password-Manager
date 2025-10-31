@@ -92,24 +92,51 @@ const storage = multer.diskStorage({
 });
 const upload = multer({ storage: storage });
 
+// app.post('/api/user/avatar', authMiddleware, upload.single('avatar'), async (req, res) => {
+//   try {
+//     if (!req.file) {
+//       return res.status(400).json({ message: 'No file was uploaded.' });
+//     }
+//     const avatarUrl = `/uploads/${req.file.filename}`;
+//     const db = client.db(dbName);
+//     const usersCollection = db.collection('users');
+//     await usersCollection.updateOne(
+//       { _id: new ObjectId(req.user.id) },
+//       { $set: { avatarUrl: avatarUrl } }
+//     );
+//     res.json({ success: true, message: 'Avatar updated successfully.', avatarUrl: avatarUrl })
+
+//   } catch (error) {
+//     res.status(500).json({ message: 'Server error during avatar upload.', error })
+//   }
+// })
+const cloudinary = require('cloudinary').v2;
+cloudinary.config({
+  cloud_name: process.env.CLOUD_NAME,
+  api_key: process.env.CLOUD_API_KEY,
+  api_secret: process.env.CLOUD_API_SECRET,
+});
+
 app.post('/api/user/avatar', authMiddleware, upload.single('avatar'), async (req, res) => {
   try {
-    if (!req.file) {
-      return res.status(400).json({ message: 'No file was uploaded.' });
-    }
-    const avatarUrl = `/uploads/${req.file.filename}`;
-    const db = client.db(dbName);
-    const usersCollection = db.collection('users');
-    await usersCollection.updateOne(
-      { _id: new ObjectId(req.user.id) },
-      { $set: { avatarUrl: avatarUrl } }
-    );
-    res.json({ success: true, message: 'Avatar updated successfully.', avatarUrl: avatarUrl })
+    const result = await cloudinary.uploader.upload(req.file.path, {
+      folder: 'passop_avatars'
+    });
+    const avatarUrl = result.secure_url;
 
+    const db = client.db(dbName);
+    await db.collection('users').updateOne(
+      { _id: new ObjectId(req.user.id) },
+      { $set: { avatarUrl } }
+    );
+
+    res.json({ success: true, message: 'Avatar updated', avatarUrl });
   } catch (error) {
-    res.status(500).json({ message: 'Server error during avatar upload.', error })
+    console.error(error);
+    res.status(500).json({ message: 'Error uploading avatar', error });
   }
-})
+});
+
 
 
 
