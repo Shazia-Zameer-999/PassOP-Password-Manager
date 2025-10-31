@@ -197,7 +197,8 @@ const Navbar = () => {
                                 hover:scale-110 hover:shadow-lg hover:shadow-green-500/50
                                 focus:outline-none focus:ring-2 focus:ring-offset-2                      focus:ring-green-400 focus:ring-offset-slate-800 cursor-pointer                           overflow-hidden">
                                 {avatarUrl ? (
-                                    <img src={`${import.meta.env.VITE_API_BASE}/${avatarUrl}`} alt="User Avatar" className="w-full h-full object-cover" />
+                                    <img src={avatarUrl} alt="User Avatar" className="w-full h-full object-cover" />
+
                                 ) : (
                                     <span>{username.charAt(0).toUpperCase()}</span>
                                 )}
